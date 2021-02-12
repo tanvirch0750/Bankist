@@ -36,7 +36,7 @@ const section1 = document.querySelector('#section--1');
 
 btnScrollTo.addEventListener('click', function (e) {
   e.preventDefault();
-  const s1cords = section1.getBoundingClientRect();
+  // const s1cords = section1.getBoundingClientRect();
 
   // window.scrollTo(
   //   s1cords.left + window.pageXOffset,
@@ -71,7 +71,33 @@ document.querySelector('.nav__links').addEventListener('click', function (e) {
   // matching strategy
   if (e.target.classList.contains('.nav__links')) {
     const id = e.target.getAttribute('href');
-    console.log(id);
     document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
   }
+});
+
+////////////////////////////
+//// TABBED COMPONENT
+const tabs = document.querySelectorAll('.operations__tab');
+const tabsContainer = document.querySelector('.operations__tab-container');
+const tabsContent = document.querySelectorAll('.operations__content');
+
+tabsContainer.addEventListener('click', function (e) {
+  const clicked = e.target.closest('.operations__tab');
+
+  // Guard clause
+  if (!clicked) return;
+
+  // remove active classes
+  tabs.forEach(tab => tab.classList.remove('operations__tab--active'));
+  tabsContent.forEach(tab =>
+    tab.classList.remove('operations__content--active')
+  );
+
+  // active tab
+  clicked.classList.add('operations__tab--active');
+
+  // active content area
+  document
+    .querySelector(`.operations__content--${clicked.dataset.tab}`)
+    .classList.add('operations__content--active');
 });
